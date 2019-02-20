@@ -14,7 +14,7 @@
         name: "List",
         data(){
             return {
-                active: 0,
+
             }
         },
         components: {

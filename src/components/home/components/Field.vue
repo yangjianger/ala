@@ -63,6 +63,28 @@
             </div>
         </div>
 
+        <mt-datetime-picker
+                v-model="pickerVisible1"
+                type="date"
+                ref="picker1"
+                year-format="{value}"
+                month-format="{value}"
+                date-format="{value} 日"
+                @confirm="handleConfirm1"
+                :startDate="startDate">
+        </mt-datetime-picker>
+
+        <mt-datetime-picker
+                v-model="pickerVisible2"
+                type="date"
+                ref="picker2"
+                year-format="{value}"
+                month-format="{value}"
+                date-format="{value} 日"
+                @confirm="handleConfirm2"
+                :startDate="startDate">
+        </mt-datetime-picker>
+
         <div class="field-item border-bottom">
             <div class="field-left-item field-left-item-serach">
                 <div class="left-icon">
@@ -86,28 +108,6 @@
             </div>
         </router-link>
 
-        <mt-datetime-picker
-                v-model="pickerVisible1"
-                type="date"
-                ref="picker1"
-                year-format="{value}"
-                month-format="{value}"
-                date-format="{value} 日"
-                @confirm="handleConfirm1"
-                :startDate="startDate">
-        </mt-datetime-picker>
-
-        <mt-datetime-picker
-                v-model="pickerVisible2"
-                type="date"
-                ref="picker2"
-                year-format="{value}"
-                month-format="{value}"
-                date-format="{value} 日"
-                @confirm="handleConfirm2"
-                :startDate="startDate">
-        </mt-datetime-picker>
-
     </div>
 </template>
 
@@ -120,8 +120,6 @@
         name: "Field",
         data(){
             return {
-                pickerVisible2:"",
-                pickerVisible1:"",
                 startDate: new Date(),
                 startDates: currentDate.getDate(),
                 startMonth: currentDate.getMonth() + 1,
@@ -129,6 +127,8 @@
                 endDates: currentDate.getDate(),
                 endMonth: currentDate.getMonth() + 1,
                 endWeek: "周"+myday,
+                pickerVisible1: "",
+                pickerVisible2: "",
             };
         },
         methods:{
