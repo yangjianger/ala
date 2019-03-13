@@ -1,5 +1,12 @@
 <template>
-    <reserve-info></reserve-info>
+    <div>
+        <van-nav-bar
+                title="阿拉思家"
+                left-arrow
+                @click-left="onClickLeft"
+        />
+        <reserve-info></reserve-info>
+    </div>
 </template>
 
 <script>
@@ -8,6 +15,11 @@
         name: "Reserve",
         components: {
             ReserveInfo
+        },
+        methods:{
+            onClickLeft(ev){
+                this.$router.go(-1);
+            },
         }
     }
 </script>

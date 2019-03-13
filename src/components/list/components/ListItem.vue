@@ -1,190 +1,132 @@
 <template>
     <div class="list-item">
-        <router-link to="/info/1">
-            <div class="list border-top">
-                <div class="left">
-                    <img src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
-                </div>
-                <div class="right border-bottom">
-                    <div class="title">
-                        <span>阿拉思家智慧酒店</span>
-                        <span>.</span>
-                        <span>郑州火车站店</span>
+        <van-list
+                v-model="loading"
+                :finished="finished"
+                finished-text="没有更多了"
+                @load="onLoad"
+        >
+            <router-link v-for="item in hotelList" :key="item.hotelId" :to="'/info/' + item.hotelId">
+                <div class="list border-top">
+                    <div class="left">
+                        <img :src="hotelPicPath + item.hotelPic" alt="">
                     </div>
-                    <div class="score">
-                        <span class="score-item">5.0分</span>
-                        <span>|</span>
-                        <span class="iconfont">&#xe778;</span>
-                        <span class="iconfont">&#xe953;</span>
-                    </div>
-                    <div class="desc">
-                        <span>距郑州站直线距离500m</span>
-                        <span>|</span>
-                        <span>二七区/郑州火车站地区</span>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">
-                            <span>距您直线距离856m</span>
+                    <div class="right border-bottom">
+                        <div class="title">
+                            <!--<span>阿拉思家智慧酒店</span>-->
+                            <!--<span>.</span>-->
+                            <span>{{item.hotelName}}</span>
                         </div>
-                        <div class="price-right">
-                            <span class="price-pre">￥</span>
-                            <span class="price-num">128</span>
-                            <span class="price-desc">元起</span>
+                        <div class="score">
+                            <span class="score-item">{{item.hotelScore}}分</span>
+                            <span>|</span>
+                            <span class="iconfont">&#xe778;</span>
+                            <span class="iconfont">&#xe953;</span>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </router-link>
-        <router-link to="/info/2">
-            <div class="list border-top">
-                <div class="left">
-                    <img src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
-                </div>
-                <div class="right border-bottom">
-                    <div class="title">
-                        <span>阿拉思家智慧酒店</span>
-                        <span>.</span>
-                        <span>郑州火车站店</span>
-                    </div>
-                    <div class="score">
-                        <span class="score-item">5.0分</span>
-                        <span>|</span>
-                        <span class="iconfont">&#xe778;</span>
-                        <span class="iconfont">&#xe953;</span>
-                    </div>
-                    <div class="desc">
-                        <span>距郑州站直线距离500m</span>
-                        <span>|</span>
-                        <span>二七区/郑州火车站地区</span>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">
-                            <span>距您直线距离856m</span>
+                        <div class="desc">
+                            <span>{{item.hotelSummary}}</span>
+                            <span>|</span>
+                            <span>{{item.hotelAddress}}</span>
                         </div>
-                        <div class="price-right">
-                            <span class="price-pre">￥</span>
-                            <span class="price-num">128</span>
-                            <span class="price-desc">元起</span>
+                        <div class="price">
+                            <div class="price-left">
+                                <span>距您直线距离{{item.dis}}m</span>
+                            </div>
+                            <div class="price-right">
+                                <span class="price-pre">￥</span>
+                                <span class="price-num">{{item.hotelPrice}}</span>
+                                <span class="price-desc">元起</span>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </router-link>
-        <router-link to="/info/3">
-            <div class="list border-top">
-                <div class="left">
-                    <img src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
-                </div>
-                <div class="right border-bottom">
-                    <div class="title">
-                        <span>阿拉思家智慧酒店</span>
-                        <span>.</span>
-                        <span>郑州火车站店</span>
-                    </div>
-                    <div class="score">
-                        <span class="score-item">5.0分</span>
-                        <span>|</span>
-                        <span class="iconfont">&#xe778;</span>
-                        <span class="iconfont">&#xe953;</span>
-                    </div>
-                    <div class="desc">
-                        <span>距郑州站直线距离500m</span>
-                        <span>|</span>
-                        <span>二七区/郑州火车站地区</span>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">
-                            <span>距您直线距离856m</span>
-                        </div>
-                        <div class="price-right">
-                            <span class="price-pre">￥</span>
-                            <span class="price-num">128</span>
-                            <span class="price-desc">元起</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </router-link>
-        <router-link to="/info/4">
-            <div class="list border-top">
-                <div class="left">
-                    <img src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
-                </div>
-                <div class="right border-bottom">
-                    <div class="title">
-                        <span>阿拉思家智慧酒店</span>
-                        <span>.</span>
-                        <span>郑州火车站店</span>
-                    </div>
-                    <div class="score">
-                        <span class="score-item">5.0分</span>
-                        <span>|</span>
-                        <span class="iconfont">&#xe778;</span>
-                        <span class="iconfont">&#xe953;</span>
-                    </div>
-                    <div class="desc">
-                        <span>距郑州站直线距离500m</span>
-                        <span>|</span>
-                        <span>二七区/郑州火车站地区</span>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">
-                            <span>距您直线距离856m</span>
-                        </div>
-                        <div class="price-right">
-                            <span class="price-pre">￥</span>
-                            <span class="price-num">128</span>
-                            <span class="price-desc">元起</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </router-link>
-        <router-link to="/info/5">
-            <div class="list border-top">
-                <div class="left">
-                    <img src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
-                </div>
-                <div class="right border-bottom">
-                    <div class="title">
-                        <span>阿拉思家智慧酒店</span>
-                        <span>.</span>
-                        <span>郑州火车站店</span>
-                    </div>
-                    <div class="score">
-                        <span class="score-item">5.0分</span>
-                        <span>|</span>
-                        <span class="iconfont">&#xe778;</span>
-                        <span class="iconfont">&#xe953;</span>
-                    </div>
-                    <div class="desc">
-                        <span>距郑州站直线距离500m</span>
-                        <span>|</span>
-                        <span>二七区/郑州火车站地区</span>
-                    </div>
-                    <div class="price">
-                        <div class="price-left">
-                            <span>距您直线距离856m</span>
-                        </div>
-                        <div class="price-right">
-                            <span class="price-pre">￥</span>
-                            <span class="price-num">128</span>
-                            <span class="price-desc">元起</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </router-link>
+            </router-link>
+        </van-list>
+
     </div>
 </template>
 
 <script>
+    import { mapMutations, mapState } from 'vuex'
+    import axios from 'axios'
     export default {
-        name: "ListItem"
+        name: "ListItem",
+        data(){
+            return {
+                hotelPicPath: 'http://www.alalx.cn/static/upload/hotelpic/',
+                hotelList:[],
+                limit: 0,
+                size: 10,
+                hasList: true,
+                loading: false,
+                offset: "600",
+                finished: false
+            }
+        },
+        computed:{
+            ...mapState({
+                romeType        : 'romeType',
+                hotelProvincial : 'province',
+                hotelCities     : 'city',
+                hotelCounties   : 'district',
+                startTime       : 'startTime',
+                endTime         : 'endTime',
+            }),
+        },
+        mounted(){
+          //  this.getHotelList();
+        },
+
+        methods:{
+            onLoad() {
+                this.getHotelList();
+            },
+            getHotelList(){
+                axios.get('/index.php?r=api/hotel/list', {
+                    params:{
+                        type:               this.romeType,
+                        limit:              this.limit,
+                        size:               this.size,
+                        hotelProvincial:    this.hotelProvincial,
+                        hotelCities:        this.hotelCities,
+                        hotelCounties:      this.hotelCounties,
+                        startTime:          this.startTime,
+                        endTime:            this.endTime,
+                    }
+                }).then(this.getList)
+            },
+
+            getList(res){
+                if(!this.hasList){
+                    return;
+                }
+                this.loading = true;
+                let hotelList = this.hotelList;
+                let data = res.data.result;
+                let limit = res.data.limit;
+                if(data.length > 0){
+                    data.forEach(function(ele, index){
+                        hotelList.push(ele);
+                    });
+                    this.hotelList = hotelList;
+                    this.limit = limit;
+                    this.loading = false;
+                }else{
+                    this.hasList = false;
+                    this.loading = false;
+                    this.finished = true;
+                }
+
+            }
+
+        }
     }
 </script>
 
 <style scoped lang="stylus">
+    .list-item{
+        margin-bottom 1.5rem;
+    }
     .list{
         padding .2rem;
         display flex;
@@ -202,6 +144,7 @@
         }
 
         .right{
+            width: 5.6rem;
             line-height: .4rem;
             .title{
                 font-size 0.30rem;

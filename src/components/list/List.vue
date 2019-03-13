@@ -1,5 +1,10 @@
 <template>
     <div class="list">
+        <van-nav-bar
+                title="阿拉思家"
+                left-arrow
+                @click-left="onClickLeft"
+        />
         <list-header></list-header>
         <list-item></list-item>
     </div>
@@ -12,14 +17,16 @@
 
     export default {
         name: "List",
-        data(){
-            return {
-                active: 0,
-            }
-        },
+
         components: {
             ListHeader,
             ListItem
+        },
+
+        methods:{
+            onClickLeft(ev){
+                this.$router.push('/');
+            },
         }
     }
 </script>

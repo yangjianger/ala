@@ -6,6 +6,11 @@
     import BMap from 'BMap'
     export default {
         name: "Maps",
+        props:{
+            hotelLatitude: String,
+            hotelLongitude: String,
+            hotelAngle: String,
+        },
         data(){
             return {
                 mapStyle:{
@@ -16,11 +21,13 @@
         },
         methods: {
             drawmap: function () {
+
                 // 百度地图API功能
                // console.log(this.$refs.allmap)
                 // let amap = this.$refs.allmap
+                let that = this;
                 var map = new BMap.Map("allmap");
-                var point1 = new BMap.Point(113.9417088, 22.6689024);
+                var point1 = new BMap.Point(that.hotelLongitude, that.hotelLatitude);
                 var marker = new BMap.Marker(point1);
                 map.addOverlay(marker);
                 map.centerAndZoom(point1, 15);  // 编写自定义函数，创建标注
@@ -60,8 +67,9 @@
     }
 
     .map{
+        touch-action: none;
         margin-top .1rem;
-        background #ffffff;
+        background red;
 
     }
 

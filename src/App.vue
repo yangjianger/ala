@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view/>
-    <div class="buttom">
+    <div class="buttom" v-if="showTab">
       <van-tabbar v-model="active">
         <van-tabbar-item icon="home-o" to="/">首页</van-tabbar-item>
         <van-tabbar-item icon="orders-o" to="/order">订单</van-tabbar-item>
@@ -19,6 +19,32 @@ export default {
             active: 0,
         };
     },
+    computed:{
+        showTab(){
+            let showTab = false;
+            let paths = this.$route.path;
+            if(
+                paths == "/user-order" ||
+                paths == "/user" ||
+                paths == "/order" ||
+                paths == "/list" ||
+                paths == "/" ||
+                paths == "/info"
+            ){
+                showTab = true;
+            }else{
+                showTab = false;
+            }
+            return showTab;
+        }
+    },
+    mounted(){
+        if(this.$route.path == "/order" || this.$route.path == "/order-list"){
+            this.active = 1;
+        }else if(this.$route.path == "/user" || this.$route.path == "/user-order"){
+            this.active = 2;
+        }
+    }
 }
 </script>
 

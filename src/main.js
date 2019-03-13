@@ -9,6 +9,9 @@ import router from './router'
 import Vant from 'vant';
 Vue.use(Vant);
 
+import axios from 'axios'
+Vue.prototype.$axios = axios;
+
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 Vue.use(MintUI);
@@ -19,15 +22,19 @@ import '@/assets/style/border.css'
 import '@/assets/style/reset.css'
 
 import animated from 'animate.css'
+import store from './store'
 
 Vue.use(animated);
+
+//解决低版本 白屏
+import 'babel-polyfill'
 
 Vue.config.productionTip = false;
 
 new Vue({
     render: h => h(App),
     router,
-    // store,
+    store,
     components: { App },
     template: '<App/>'
 }).$mount('#app');

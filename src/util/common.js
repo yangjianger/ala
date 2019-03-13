@@ -27,5 +27,13 @@ module.exports = {
                 xingqi = "系统错误！"
         }
         return xingqi;
+    },
+    checkTel: function(tel){
+        let reg = /^[1-9]{1}[0-9]{10}$/; //验证规则
+        if(reg.test(tel)){
+            return true;
+        }
+        return false;
+
     }
 };

@@ -6,62 +6,33 @@
                     <span class="iconfont">&#xe63a;</span>
                 </div>
                 <div class="left-address">
-                    <span class="address">郑州市金水区</span>
+                    <span class="address">{{this.city}}</span>
                 </div>
             </div>
             <div class="field-right-item">
                 <div class="user-address-left">
                     <span class="iconfont"> > </span>
                 </div>
-                <div class="user-address-right">
+                <!--<router-link to="/city"></router-link>-->
+                <div class="user-address-right" @click="showAreaModel">
                     <span class="iconfont"> &#xe63a; </span>
                     <span class="user-address"> 我的位置 </span>
                 </div>
             </div>
         </div>
-        <div class="field-item border-bottom field-item-rili">
-            <div class="field-left-item field-left-item-serach field-left-item-rili">
-                <div class="left-icon">
-                    <span class="iconfont">&#xe632;</span>
-                </div>
-                <div class="left-address left-search left-search-rili">
-                    <div class="left-rili-left" @click="openPicker1">
-                        <div class="left-rili-left-top">
-                            <span>入住</span>
-                        </div>
-                        <div class="left-rili-left-bottom">
-                            <div class="left-rili-left-bottom-date">
-                                <span>{{startDates}}</span>
-                            </div>
-                            <div class="left-rili-left-bottom-month-week">
-                                <span class="month">{{startMonth}}月</span>
-                                <span class="week">{{startWeek}}</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="left-rili-left left-rili-icon"> / </div>
-                    <div class="left-rili-left" @click="openPicker2">
-                        <div class="left-rili-left-top">
-                            <span>退房</span>
-                        </div>
-                        <div class="left-rili-left-bottom">
-                            <div class="left-rili-left-bottom-date">
-                                <span>{{endDates}}</span>
-                            </div>
-                            <div class="left-rili-left-bottom-month-week">
-                                <span class="month">{{endMonth}}月</span>
-                                <span class="week">{{endWeek}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="field-right-item">
-                <div class="user-address-left user-address-left-icon">
-                    <span class="iconfont"> > </span>
-                </div>
-            </div>
-        </div>
+
+        <van-popup v-model="showArea">
+            <van-area
+                    :area-list="areaList"
+                    :columns-num="3"
+                    :title="title"
+                    :value="value"
+                    @confirm="areaConfirm"
+                    @cancel="areaCancel"
+            />
+        </van-popup>
+
+        <time-select></time-select>
 
         <div class="field-item border-bottom">
             <div class="field-left-item field-left-item-serach">
@@ -86,75 +57,118 @@
             </div>
         </router-link>
 
-        <mt-datetime-picker
-                v-model="pickerVisible1"
-                type="date"
-                ref="picker1"
-                year-format="{value}"
-                month-format="{value}"
-                date-format="{value} 日"
-                @confirm="handleConfirm1"
-                :startDate="startDate">
-        </mt-datetime-picker>
-
-        <mt-datetime-picker
-                v-model="pickerVisible2"
-                type="date"
-                ref="picker2"
-                year-format="{value}"
-                month-format="{value}"
-                date-format="{value} 日"
-                @confirm="handleConfirm2"
-                :startDate="startDate">
-        </mt-datetime-picker>
-
     </div>
 </template>
 
 <script>
+    import TimeSelect from './TimeSelect';
     import common from "../../../util/common";
+    import AreaList from "@/util/area";
+    import { mapMutations, mapState } from 'vuex'
+
     let currentDate = new Date();
     let myday = common.getWeek(currentDate.getDay()); //注:0-6对应为星期日到星期六
 
     export default {
         name: "Field",
+        components:{
+            TimeSelect
+        },
         data(){
             return {
-                pickerVisible2:"",
-                pickerVisible1:"",
-                startDate: new Date(),
-                startDates: currentDate.getDate(),
-                startMonth: currentDate.getMonth() + 1,
-                startWeek: "周"+myday,
-                endDates: currentDate.getDate(),
-                endMonth: currentDate.getMonth() + 1,
-                endWeek: "周"+myday,
+                showArea: false,
+                areaList: AreaList,
+                value: "",
+                title: ""
             };
         },
+        computed:{
+            ...mapState({
+                province: "province",
+                city: "city",
+                defaultCityCode: "defaultCityCode",
+                district: "district"
+            }),
+        },
+        mounted(){
+
+            this.value = this.defaultCityCode;
+
+            return;
+            let that = this;
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var lat = position.coords.latitude;
+                var lon = position.coords.longitude;
+                var point = new BMap.Point(lon, lat);  // 创建坐标点
+                // 根据坐标得到地址描述
+                var myGeo = new BMap.Geocoder();
+                myGeo.getLocation(point, function (result) {
+                    let city        = result.addressComponents.city;
+                    let province    = result.addressComponents.province;
+                    let district    = result.addressComponents.district;
+
+                    let cityInfo = {
+                        province: province,
+                        city: city,
+                        district: district,
+                        latitude: lat,
+                        longitude: lon,
+                    };
+
+                    that.setCityInfo(cityInfo);
+
+                });
+
+            });
+
+        },
         methods:{
-            openPicker1() {
-                this.$refs.picker1.open();
+            ...mapMutations(['setCity']),
+
+            setCityInfo(cityInfo){
+                this.setCity(cityInfo);
             },
-            openPicker2() {
-                this.$refs.picker2.open();
+
+            showAreaModel(){
+                this.showArea = !this.showArea;
             },
-            handleConfirm1(val){
-                let confirmDate = new Date(val);
-                this.startDates =  confirmDate.getDate();
-                this.startMonth =  confirmDate.getMonth() + 1;
-                this.startWeek =  "周" + common.getWeek(confirmDate.getDay());
+            areaConfirm(res){
+                let cityInfo = {
+                    province: res[0].name,
+                    city: res[1].name,
+                    district: res[2].name,
+                    defaultCityCode: res[2].code,
+                };
+
+                //获取经纬度
+                let url = 'http://api.map.baidu.com/geocoder?address='+cityInfo.district+'&output=json&key=yef7EQjGH1iC3emFBmCLGiYBLCqj4gSt&city='+cityInfo.city;
+
+                this.$axios.get(url)
+                    .then(function(res){
+                        console.log(res);
+                    });
+
+                this.setCity(cityInfo);
+                this.showArea = false;
             },
-            handleConfirm2(val){
-                let confirmDate = new Date(val);
-                this.endDates =  confirmDate.getDate();
-                this.endMonth =  confirmDate.getMonth() + 1;
-                this.endWeek =  "周" + common.getWeek(confirmDate.getDay());
+            areaCancel(res){
+                this.showArea = false;
             }
         }
     }
 </script>
 
 <style scoped lang="stylus">
+    @import "~@/assets/style/varibles.styl"
+
+    .field >>> a{
+        color: $blueColor
+    }
+
+    .field>>>.van-popup{
+        width 100%;
+    }
+
     $color = #888
     .field
         margin-top .5rem

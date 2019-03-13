@@ -4,4 +4,7 @@ module.exports = {
             "BMap": "BMap"
         },
     },
+    devServer: {
+        proxy: 'http://ala.pandanote.cn'
+    }
 }

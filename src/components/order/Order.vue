@@ -162,7 +162,6 @@
         },
         data(){
             return {
-                active: 1,
                 startDate: new Date(),
                 pickerValue: "2018年09月19 12:00:00",
                 pickerVisible: ""

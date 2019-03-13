@@ -1,13 +1,13 @@
 <template>
     <div class="header">
         <div class="banner">
-            <div class="top">
-                <img class="headerImg" @click="infoImagePreview" src="http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640" alt="">
+            <div class="top" v-if="itemInfo.hotelPic">
+                <img class="headerImg" @click="infoImagePreview" :src="hotelPicPath + itemInfo.hotelPic" alt="">
             </div>
             <div class="info">
                 <div class="info-left">
                     <span class="iconfont">&#xe75e;</span>
-                    <span class="num">20张</span>
+                    <span class="num">{{imagesNum}}张</span>
                 </div>
                 <div class="info-right">
                     <span v-if="hasZan" class="iconfont zan">&#xe63b;</span>
@@ -16,9 +16,10 @@
             </div>
         </div>
         <div class="title-info border-bottom">
-            <span class="title">阿拉思家智慧酒店 . 郑州火车站店</span>
-            <span class="score">5.0分</span>
-            <span class="comment">（5028人点评）</span>
+            <span class="title">{{itemInfo.hotelName}}</span>
+            <span class="score" v-if="itemInfo.hotelScore > 0">{{itemInfo.hotelScore}}分</span>
+            <span class="comment" v-if="itemInfo.commentNum > 0">（5028人点评）</span>
+            <span class="comment" v-else>（暂无点评）</span>
         </div>
     </div>
 </template>
@@ -27,24 +28,49 @@
     import { ImagePreview } from 'vant';
     export default {
         name: "Header",
+        props:{
+            itemInfo: Object
+        },
+        watch:{
+            itemInfo(nv, ov){
+                this.itemInfo = nv;
+                this.imageFormat();
+            }
+        },
         data(){
             return{
+                hotelPicPath: 'http://www.alalx.cn/static/upload/hotelpic/',
                 hasZan: false,
+                imagesNum: 0,
+                images: [],
             };
+        },
+        mounted(){
+
+            this.imageFormat();
         },
         methods:{
             infoImagePreview(){
+                let that = this;
                 ImagePreview({
-                    images:[
-                        'http://s1.jiguo.com/ded50aa0-2080-40ae-92f2-d52844b396d7/640',
-                        'http://s1.jiguo.com/1b103915-4c4e-41ec-afe8-6a2ae740ba7d/640',
-                        'http://s1.jiguo.com/bd01da52-0f6e-4846-8935-d7b15fd88bad/640',
-                        'http://s1.jiguo.com/b27aa93a-d3e6-406f-bd5e-478dbcd42495/640',
-                        'http://s1.jiguo.com/01351f42-404b-49ee-816b-aae3519c2c1c/640'
-                    ],
+                    images:that.images,
                     startPosition: 1,
                     showIndicators: true
                 });
+            },
+
+            imageFormat(){
+                let that = this,
+                    images = [];
+                if( this.itemInfo.images && this.itemInfo.images.length > 0){
+                    this.itemInfo.images.forEach(function(val, item, index){
+                        images.push(
+                            that.hotelPicPath + val
+                        );
+                    });
+                    that.images = images;
+                    that.imagesNum = images.length;
+                }
             }
         },
         components:{

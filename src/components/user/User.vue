@@ -13,51 +13,62 @@
                             <span class="">账户余额</span>
                             <span class="">968</span>
                         </div>
-                        <div class="item collect">
-                            <span class="">我的收藏</span>
-                            <span class="">25</span>
-                        </div>
-                        <div class="item footprint">
-                            <span class="">我的足迹</span>
-                            <span class="">63</span>
-                        </div>
+                        <router-link to="/user-collect">
+                            <div class="item collect">
+                                <span class="">我的收藏</span>
+                                <span class="">25</span>
+                            </div>
+                        </router-link>
+                        <router-link to="/user-footer">
+                            <div class="item footprint">
+                                <span class="">我的足迹</span>
+                                <span class="">63</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
                 <div class="avatar">
                     <img src="http://s1.jiguo.com/f94c11ac-01a9-4784-8aa9-3dcf7c0280bf/640" alt="">
                 </div>
-                <div class="user-more">
-                    <span class="iconfont">&#xe67e;</span>
-                </div>
+                <router-link to="/user-comment">
+                    <div class="user-more">
+                        <span class="iconfont">&#xe67e;</span>
+                    </div>
+                </router-link>
             </div>
             <div class="my-order">
                 <div class="order-info">
                     <div class="left">
                         <span class="iconfont">&#xe6db;</span>
                     </div>
-                    <router-link to="/order-list">
+                    <router-link to="/user-order">
                         <div class="right">
                             <span class="title">我的订单</span>
                             <span class="order-desc">开启优质酒店之旅</span>
                         </div>
                     </router-link>
                 </div>
-                <div class="select">
-                    <span>查看</span>
-                </div>
+                <router-link to="/user-order">
+                    <div class="select">
+                        <span>查看</span>
+                    </div>
+                </router-link>
             </div>
         </div>
         <div class="bottom">
             <div class="user-list-info border-bottom">
                 <div class="item left border-right">
                     <div class="room-info-desc">
+
                         <div class="icon">
                             <span class="iconfont">&#xe649;</span>
                         </div>
-                        <div class="room-info">
-                            <span class="title">我的酒店</span>
-                            <span class="desc">您入住过的酒店</span>
-                        </div>
+                        <router-link to="/user-hotel">
+                            <div class="room-info">
+                                <span class="title">我的酒店</span>
+                                <span class="desc">您入住过的酒店</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
                 <div class="item right">
@@ -65,10 +76,12 @@
                         <div class="icon">
                             <span class="iconfont">&#xe649;</span>
                         </div>
-                        <div class="room-info">
-                            <span class="title">我的点评</span>
-                            <span class="desc">我们进步的阶梯</span>
-                        </div>
+                        <router-link to="/user-comment">
+                            <div class="room-info">
+                                <span class="title">我的点评</span>
+                                <span class="desc">我们进步的阶梯</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
@@ -78,23 +91,28 @@
                         <div class="icon">
                             <span class="iconfont">&#xe649;</span>
                         </div>
-                        <div class="room-info">
-                            <span class="title">常用信息</span>
-                            <span class="desc">旅客 地址 手机</span>
-                        </div>
+                        <router-link to="/user-address">
+                            <div class="room-info">
+                                <span class="title">常用信息</span>
+                                <span class="desc">旅客 地址 手机</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
-                <div class="item right">
-                    <div class="room-info-desc">
-                        <div class="icon">
-                            <span class="iconfont">&#xe649;</span>
+                    <div class="item right">
+                        <router-link to='/help'>
+                        <div class="room-info-desc">
+                            <div class="icon">
+                                <span class="iconfont">&#xe649;</span>
+                            </div>
+                            <div class="room-info">
+                                <span class="title">帮助中心</span>
+                                <span class="desc">竭诚为您提供帮助</span>
+                            </div>
                         </div>
-                        <div class="room-info">
-                            <span class="title">帮助中心</span>
-                            <span class="desc">竭诚为您提供帮助</span>
-                        </div>
+                        </router-link>
                     </div>
-                </div>
+
             </div>
             <div class="user-list-info border-bottom">
                 <div class="item left border-right">
@@ -102,10 +120,12 @@
                         <div class="icon">
                             <span class="iconfont">&#xe649;</span>
                         </div>
-                        <div class="room-info">
-                            <span class="title">客服中心</span>
-                            <span class="desc">有疑问，您找我</span>
-                        </div>
+                        <router-link to="/user-service">
+                            <div class="room-info">
+                                <span class="title">客服中心</span>
+                                <span class="desc">有疑问，您找我</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
                 <div class="item right">
@@ -113,10 +133,12 @@
                         <div class="icon">
                             <span class="iconfont">&#xe649;</span>
                         </div>
-                        <div class="room-info">
-                            <span class="title">关于我们</span>
-                            <span class="desc">应用介绍</span>
-                        </div>
+                        <router-link to="/about">
+                            <div class="room-info">
+                                <span class="title">关于我们</span>
+                                <span class="desc">应用介绍</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
