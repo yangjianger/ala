@@ -17,7 +17,15 @@
 
     export default {
         name: "List",
+<<<<<<< HEAD
 
+=======
+        data(){
+            return {
+
+            }
+        },
+>>>>>>> bb2d0935bde685c6c740b89a752e0797c5ca2500
         components: {
             ListHeader,
             ListItem
